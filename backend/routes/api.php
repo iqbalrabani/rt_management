@@ -1,19 +1,18 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ResidentController;
-use App\Http\Controllers\HouseController;
-use App\Http\Controllers\HouseResidentHistoryController;
-use App\Http\Controllers\PaymentController;
-use App\Http\Controllers\ExpenditureController;
-use App\Http\Controllers\ReportController;
+use App\Http\Controllers\Api\ResidentController;
+use App\Http\Controllers\Api\HouseController;
+use App\Http\Controllers\Api\HouseResidentHistoryController;
+use App\Http\Controllers\Api\PaymentController;
+use App\Http\Controllers\Api\ExpenditureController;
+use App\Http\Controllers\Api\ReportController;
 
 // Residents
 Route::prefix('residents')->group(function () {
     Route::get('/', [ResidentController::class, 'index']);
     Route::post('/', [ResidentController::class, 'store']);
     Route::put('/{id}', [ResidentController::class, 'update']);
-    // Tambahkan route GET detail, DELETE jika diperlukan.
 });
 
 // Houses

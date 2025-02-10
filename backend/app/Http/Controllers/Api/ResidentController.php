@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -18,11 +18,11 @@ class ResidentController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'full_name'      => 'required|string',
-            'ktp_photo'      => 'required|image',
-            'status'         => 'required|in:tetap,kontrak',
-            'phone_number'   => 'required|string',
-            'marital_status' => 'required|in:menikah,belum',
+            'full_name' => 'required|string',
+            'ktp_photo' => 'required|file|mimes:jpeg,png,jpg|max:2048',
+            'status' => 'required|in:tetap,kontrak',
+            'phone_number' => 'required|string',
+            'marital_status' => 'required|in:belum,menikah',
         ]);
 
         // Proses upload foto KTP
@@ -43,9 +43,9 @@ class ResidentController extends Controller
         $validated = $request->validate([
             'full_name'      => 'sometimes|required|string',
             'ktp_photo'      => 'sometimes|image',
-            'status'         => 'sometimes|required|in:tetap,kontrak',
+            'status'         => 'sometimes|required|in:Tetap,Kontrak',
             'phone_number'   => 'sometimes|required|string',
-            'marital_status' => 'sometimes|required|in:menikah,belum',
+            'marital_status' => 'sometimes|required|in:Menikah,Belum',
         ]);
 
         if ($request->hasFile('ktp_photo')) {

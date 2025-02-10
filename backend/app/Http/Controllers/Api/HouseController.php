@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -21,8 +21,8 @@ class HouseController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'house_number' => 'required|string|unique:houses,house_number',
-            'status'       => 'required|in:dihuni,tidak_dihuni',
+            'house_number'        => 'required|string|unique:houses,house_number',
+            'status'              => 'required|in:dihuni,tidak_dihuni',
             'current_resident_id' => 'nullable|exists:residents,id',
         ]);
 
@@ -53,8 +53,8 @@ class HouseController extends Controller
         $house = House::findOrFail($id);
 
         $validated = $request->validate([
-            'house_number' => 'sometimes|required|string|unique:houses,house_number,'.$id,
-            'status'       => 'sometimes|required|in:dihuni,tidak_dihuni',
+            'house_number'        => 'sometimes|required|string|unique:houses,house_number,'.$id,
+            'status'              => 'sometimes|required|in:dihuni,tidak_dihuni',
             'current_resident_id' => 'nullable|exists:residents,id',
         ]);
 
