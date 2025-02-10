@@ -60,7 +60,6 @@ git clone https://github.com/iqbalrabani/rt_management.git
    php artisan serve
    ```
    - The backend server will run at `http://localhost:8000`
-   - For full API documentation, refer to the backend documentation ([here](https://github.com/iqbalrabani/rt_management/tree/main/backend#readme))
 
 ### C. Frontend Setup
 1. Navigate to the frontend folder:
