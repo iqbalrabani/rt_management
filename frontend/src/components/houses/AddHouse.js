@@ -7,31 +7,43 @@ function AddHouse() {
   const [currentResidentId, setCurrentResidentId] = useState('');
   const [residents, setResidents] = useState([]);
   const [message, setMessage] = useState('');
+  const [loading, setLoading] = useState(false); // state loading untuk tombol
 
   useEffect(() => {
     axios.get('http://localhost:8000/api/residents')
       .then(response => setResidents(response.data))
-      .catch(error => console.error("Error fetching residents:", error));
+      .catch(error => {
+        console.error("Error fetching residents:", error);
+        const errMsg = error.response && error.response.data && error.response.data.message
+          ? error.response.data.message
+          : error.message;
+        setMessage(`Gagal mengambil data penghuni: ${errMsg}`);
+      });
   }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setLoading(true); // Mulai loading ketika submit
     const payload = {
       house_number: houseNumber,
-      status,
+      status: status,
       current_resident_id: currentResidentId || null
     };
 
     axios.post('http://localhost:8000/api/houses', payload)
       .then(response => {
         setMessage("Rumah berhasil ditambahkan!");
+        // Reset form
         setHouseNumber('');
         setStatus('tidak_dihuni');
         setCurrentResidentId('');
+        setLoading(false); // Selesai loading
+        window.dispatchEvent(new Event('houseAdded'));
       })
       .catch(error => {
-        console.error("Error adding house:", error);
+        console.error("Error adding house:", error.response ? error.response.data : error);
         setMessage("Terjadi kesalahan saat menambahkan rumah.");
+        setLoading(false); // Selesai loading walaupun terjadi error
       });
   };
 
@@ -81,7 +93,9 @@ function AddHouse() {
               </select>
             </div>
           )}
-          <button type="submit" className="btn btn-primary">Tambah Rumah</button>
+          <button type="submit" className="btn btn-primary" disabled={loading}>
+            {loading ? "Loading..." : "Tambah Rumah"}
+          </button>
         </form>
       </div>
     </div>

@@ -5,7 +5,7 @@ function Navigation() {
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-primary mb-4">
       <div className="container">
-        <Link className="navbar-brand" to="/">Perumahan App</Link>
+        <Link className="navbar-brand" to="/">RT Management App</Link>
         <button
           className="navbar-toggler"
           type="button"
